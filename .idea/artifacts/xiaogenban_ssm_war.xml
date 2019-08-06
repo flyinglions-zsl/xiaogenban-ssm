@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="xiaogenban-ssm:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="xiaogenban.war">
+      <element id="artifact" artifact-name="xiaogenban-ssm:war exploded" />
+    </root>
+  </artifact>
+</component>

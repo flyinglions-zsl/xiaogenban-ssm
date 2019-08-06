@@ -86,3 +86,13 @@ CREATE TABLE `sys_order` (
 	FOREIGN KEY (`product_id`) REFERENCES sys_product(`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='订单信息表';
 
+
+
+
+-----------------------------------
+BEGIN;
+INSERT INTO `sys_menu` VALUES(1,'权限管理','','admin','',0,'authority',0,'0','2019-08-06 21:02:31','2019-08-06 21:02:31',0);
+INSERT INTO `sys_menu` VALUES(2,'系统管理','','system','',0,'system',0,'0','2019-08-06 21:02:31','2019-08-06 21:02:31',0);
+INSERT INTO `sys_menu` VALUES(3,'用户管理','','user','admin/user',1,'user',1,'1','2019-08-06 22:02:31','2019-08-06 22:02:31',0);
+INSERT INTO `sys_menu` VALUES(4,'用户新增','sys:user:add','',NULL,2,'',0,'2','2019-08-06 22:24:31','2019-08-06 22:24:31',0);
+commit;
