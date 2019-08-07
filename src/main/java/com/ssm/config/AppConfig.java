@@ -1,44 +1,42 @@
 package com.ssm.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-
-import javax.sql.DataSource;
+import org.springframework.context.annotation.Import;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * @program: xiaogenban
- * @description: 配置类
+ * @program: xiaogenban-ssm
+ * @description: 总的配置类
  * @author: FlyingLion
- * @create: 2019-08-02 09:29
+ * @create: 2019-08-07 10:28
  **/
 @Configuration
-@MapperScan("com.ssm.mapper")
-@PropertySource("classpath:jdbc.properties")
+@ComponentScan(basePackages = {"com.ssm.mapper","com.ssm.service","com.ssm.controller"})
+@Import(DruidDataSourceConfig.class)
+/*@EnableTransactionManagement*/
 public class AppConfig {
 
-    @Value("${jdbc.url}")
-    private String url;
-
-    @Value("${jdbc.driver}")
-    private String driver;
-
-    @Value("${jdbc.username}")
-    private  String username;
-
-    @Value("${jdbc.password}")
-    private  String password;
-
+    /**
+     *@Description:
+     * 1.@EnableTransactionManagement 注解，再加上配置 DataSourceTransactionManager 的bean
+     * ，就可以在service实现层使用 @Transactional 注解为方法手动加上事务，并且指定的传播属性等等
+     * 2.使用 BeanNameAutoProxyCreator 拦截代理方式，
+     * 先创建一个 TransactionInterceptor bean，配置好事务传播等属性，在由 BeanNameAutoProxyCreator 进行事务代理
+     *@Param: []
+     *@return: org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator
+     *@Author: FlyingLion
+     *@Date: 2019/8/7 0007
+     **/
     @Bean
-    public DataSource dataSource(){
-        DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setDriverClassName(driver);
-        dataSource.setUrl(url);
-        dataSource.setUsername(username);
-        dataSource.setPassword(password);
-        return dataSource;
+    public BeanNameAutoProxyCreator proxyCreator(){
+        BeanNameAutoProxyCreator creator = new BeanNameAutoProxyCreator();
+        creator.setProxyTargetClass(true);
+        creator.setBeanNames("*ServiceImpl");
+        creator.setInterceptorNames("transactionInterceptor");
+        return creator;
     }
 }
