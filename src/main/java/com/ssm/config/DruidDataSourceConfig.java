@@ -64,7 +64,7 @@ public class DruidDataSourceConfig {
     public SqlSessionFactoryBean sqlSessionFactoryBean(){
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource());
-        sessionFactoryBean.setTypeAliasesPackage("com.ssm.po"); //设置别名，让*Mpper.xml实体类映射可以不加上具体包名
+        sessionFactoryBean.setTypeAliasesPackage("com.ssm.domain"); //设置别名，让*Mpper.xml实体类映射可以不加上具体包名
         return sessionFactoryBean;
     }
 

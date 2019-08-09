@@ -2,10 +2,8 @@ package com.ssm.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.*;
+import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -14,9 +12,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author: FlyingLion
  * @create: 2019-08-07 10:28
  **/
-@Configuration
-@ComponentScan(basePackages = {"com.ssm.mapper","com.ssm.service","com.ssm.controller"})
-@Import(DruidDataSourceConfig.class)
+/*@Configuration
+@ComponentScan(basePackages = {"com.ssm"},useDefaultFilters = true
+        ,excludeFilters  = {@ComponentScan.Filter(type = FilterType.ANNOTATION,classes = Controller.class)})
+@Import(DruidDataSourceConfig.class)*/
 /*@EnableTransactionManagement*/
 public class AppConfig {
 
@@ -31,12 +30,12 @@ public class AppConfig {
      *@Author: FlyingLion
      *@Date: 2019/8/7 0007
      **/
-    @Bean
+   /* @Bean
     public BeanNameAutoProxyCreator proxyCreator(){
         BeanNameAutoProxyCreator creator = new BeanNameAutoProxyCreator();
         creator.setProxyTargetClass(true);
         creator.setBeanNames("*ServiceImpl");
         creator.setInterceptorNames("transactionInterceptor");
         return creator;
-    }
+    }*/
 }

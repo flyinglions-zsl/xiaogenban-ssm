@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.mapper.SysOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.ssm.domain.SysOrder" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="take_product_person" property="takeProductPerson" jdbcType="VARCHAR" />
+    <result column="take_product_address" property="takeProductAddress" jdbcType="VARCHAR" />
+    <result column="pay_type" property="payType" jdbcType="VARCHAR" />
+    <result column="pay_type_id" property="payTypeId" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="created_person" property="createdPerson" jdbcType="VARCHAR" />
+    <result column="updated_person" property="updatedPerson" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="deal_status" property="dealStatus" jdbcType="CHAR" />
+    <result column="anonymous_flag" property="anonymousFlag" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    order_id, product_id, take_product_person, take_product_address, pay_type, pay_type_id, 
+    created_time, updated_time, created_person, updated_person, del_flag, deal_status, 
+    anonymous_flag
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_order
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ssm.domain.SysOrder" >
+    insert into sys_order (order_id, product_id, take_product_person, 
+      take_product_address, pay_type, pay_type_id, 
+      created_time, updated_time, created_person, 
+      updated_person, del_flag, deal_status, 
+      anonymous_flag)
+    values (#{orderId,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{takeProductPerson,jdbcType=VARCHAR}, 
+      #{takeProductAddress,jdbcType=VARCHAR}, #{payType,jdbcType=VARCHAR}, #{payTypeId,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{createdPerson,jdbcType=VARCHAR}, 
+      #{updatedPerson,jdbcType=VARCHAR}, #{delFlag,jdbcType=CHAR}, #{dealStatus,jdbcType=CHAR}, 
+      #{anonymousFlag,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.domain.SysOrder" >
+    insert into sys_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="takeProductPerson != null" >
+        take_product_person,
+      </if>
+      <if test="takeProductAddress != null" >
+        take_product_address,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="payTypeId != null" >
+        pay_type_id,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="updatedTime != null" >
+        updated_time,
+      </if>
+      <if test="createdPerson != null" >
+        created_person,
+      </if>
+      <if test="updatedPerson != null" >
+        updated_person,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="dealStatus != null" >
+        deal_status,
+      </if>
+      <if test="anonymousFlag != null" >
+        anonymous_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="takeProductPerson != null" >
+        #{takeProductPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="takeProductAddress != null" >
+        #{takeProductAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeId != null" >
+        #{payTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdPerson != null" >
+        #{createdPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedPerson != null" >
+        #{updatedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dealStatus != null" >
+        #{dealStatus,jdbcType=CHAR},
+      </if>
+      <if test="anonymousFlag != null" >
+        #{anonymousFlag,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.domain.SysOrder" >
+    update sys_order
+    <set >
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="takeProductPerson != null" >
+        take_product_person = #{takeProductPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="takeProductAddress != null" >
+        take_product_address = #{takeProductAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=VARCHAR},
+      </if>
+      <if test="payTypeId != null" >
+        pay_type_id = #{payTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedTime != null" >
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdPerson != null" >
+        created_person = #{createdPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedPerson != null" >
+        updated_person = #{updatedPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="dealStatus != null" >
+        deal_status = #{dealStatus,jdbcType=CHAR},
+      </if>
+      <if test="anonymousFlag != null" >
+        anonymous_flag = #{anonymousFlag,jdbcType=CHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.domain.SysOrder" >
+    update sys_order
+    set product_id = #{productId,jdbcType=INTEGER},
+      take_product_person = #{takeProductPerson,jdbcType=VARCHAR},
+      take_product_address = #{takeProductAddress,jdbcType=VARCHAR},
+      pay_type = #{payType,jdbcType=VARCHAR},
+      pay_type_id = #{payTypeId,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      created_person = #{createdPerson,jdbcType=VARCHAR},
+      updated_person = #{updatedPerson,jdbcType=VARCHAR},
+      del_flag = #{delFlag,jdbcType=CHAR},
+      deal_status = #{dealStatus,jdbcType=CHAR},
+      anonymous_flag = #{anonymousFlag,jdbcType=CHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>
