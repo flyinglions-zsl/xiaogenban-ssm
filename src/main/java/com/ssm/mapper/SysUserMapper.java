@@ -58,4 +58,6 @@ public interface SysUserMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SysUser record);
+
+    int checkLogin(String username, String password);
 }
