@@ -1,6 +1,10 @@
 package com.ssm.service;
 
+import com.ssm.domain.SysUser;
+import com.ssm.utils.R;
+
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 public interface ISysUserService {
     
@@ -16,6 +20,15 @@ public interface ISysUserService {
      *@Author: FlyingLion
      *@Date: 2019/8/15 0015
      **/
-    int login(String username, String password, HttpServletRequest request);
-    
+    Map<String, Object> login(String username, String password, HttpServletRequest request);
+
+
+    /**
+     *@Description: 根据主键查询user
+     *@Param: [uid]
+     *@return: com.ssm.domain.SysUser
+     *@Author: FlyingLion
+     *@Date: 2019/8/16 0016
+     **/
+    SysUser selectByPrimaryKey(Integer uid);
 }

@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * @program: xiaogenban
@@ -41,7 +42,7 @@ public class R implements Serializable {
     //响应消息
     private String msg;
     //响应数据
-    private Object data;
+    private Map<String,Object> data;
 
     public static R success(){
         R r = new R();
@@ -51,15 +52,14 @@ public class R implements Serializable {
         return r;
     }
 
-    public static R success(Object data){
+   /* public static R success(Object data){
         R r = new R();
         r.setMsg(R.SUCCESS_MSG);
         r.setCode(R.SUCCESS_CODE);
         r.setStatus(R.SUCCESS_STATUS);
-        r.setData(data);
         return r;
     }
-
+*/
     public static R error(){
         return error(HttpStatus.INTERNAL_SERVER_ERROR.value(),INTERNAL_MSG);
     }
@@ -75,5 +75,10 @@ public class R implements Serializable {
         r.setMsg(msg);
         r.setStatus(R.ERROR_STATUS);
         return r;
+    }
+
+    public R put(String key, Object value){
+        data.put(key, value);
+        return this;
     }
 }

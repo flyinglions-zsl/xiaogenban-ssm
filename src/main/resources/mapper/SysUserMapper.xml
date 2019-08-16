@@ -457,4 +457,9 @@
       rid = #{rid,jdbcType=INTEGER}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
+  <select id="checkLogin" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select uid from sys_user
+    where uname = #{uname,jdbcType=VARCHAR},
+    password = #{password,jdbcType=VARCHAR};
+  </select>
 </mapper>
