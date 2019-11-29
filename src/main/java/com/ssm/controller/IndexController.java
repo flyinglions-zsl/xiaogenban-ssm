@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * @program: xiaogenban
@@ -33,6 +35,8 @@ public class IndexController {
             @ApiParam(name = "username", value = "用户名", required = true) @RequestParam(value = "username", required = true) String username
             ,@ApiParam(name = "password", value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password
             , HttpServletRequest request){
+        Map<String, Object> map = sysUserService.login(username,password,request);
+        System.out.println("---------------------------" + map);
         return R.success().put("TokenMap",sysUserService.login(username,password,request));
     }
 }

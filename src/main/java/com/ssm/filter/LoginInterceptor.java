@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         }else {
             r = R.error("token为空，请检查");
             responseMessage(response,response.getWriter(),r);
-            return false;
+            return true;
         }
     }
 
@@ -58,10 +58,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
     //返回错误信息
     private void responseMessage(HttpServletResponse response, PrintWriter writer, R r){
-        response.setContentType("application/json; chaset=utf-8");
+       /* response.setContentType("application/json; chaset=utf-8");
         String json = JSONObject.toJSONString(r);
         writer.write(json);
         writer.flush();
-        writer.close();
+        writer.close();*/
     }
 }

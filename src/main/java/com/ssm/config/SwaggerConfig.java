@@ -19,6 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author: FlyingLion
  * @create: 2019-08-02 09:48
  **/
+@Configuration
 @EnableWebMvc
 @EnableSwagger2
 public class SwaggerConfig {
@@ -27,18 +28,20 @@ public class SwaggerConfig {
     public Docket createApi(){
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                //.groupName("pc")
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+                //.apis(RequestHandlerSelectors.basePackage("com.ssm.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("小跟班管理系统API")
-                .description("接口信息")
-                .termsOfServiceUrl("http://localhost/xiaogenban-ssm")
-                .contact(new Contact("小跟班","",""))
+                .title("xgbAPI")//小跟班管理系统
+                .description("interfaces")//接口信息
+                .termsOfServiceUrl("http://localhost/xiaogenban-ssm/")
+                .contact(new Contact("xgb","http://localhost/xiaogenban-ssm/",""))
                 .version("1.0")
                 .build();
     }

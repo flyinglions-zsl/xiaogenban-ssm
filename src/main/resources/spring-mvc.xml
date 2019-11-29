@@ -8,4 +8,8 @@
        https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <bean class="com.ssm.config.SwaggerConfig" /> <!-- 把swagger的配置当做bean 加载到springmvc 的上下文中。 -->
+    <!-- 静态资源 -->
+    <!--<mvc:resources mapping="/**" location="/" />-->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/" />
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/" />
 </beans>

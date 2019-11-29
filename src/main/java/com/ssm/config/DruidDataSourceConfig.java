@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
@@ -61,10 +63,16 @@ public class DruidDataSourceConfig {
      *@Date: 2019/8/7 0007
      **/
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactoryBean(){
+    public SqlSessionFactoryBean sqlSessionFactoryBean() throws Exception{
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
+        //配置mapper.xml
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        String mapperLocations = PathMatchingResourcePatternResolver.CLASSPATH_URL_PREFIX+"mapper/*.xml";
+        String configLocations = PathMatchingResourcePatternResolver.CLASSPATH_URL_PREFIX+"mybatis.xml";
         sessionFactoryBean.setDataSource(dataSource());
         sessionFactoryBean.setTypeAliasesPackage("com.ssm.domain"); //设置别名，让*Mpper.xml实体类映射可以不加上具体包名
+        sessionFactoryBean.setMapperLocations(resolver.getResources(mapperLocations));
+        sessionFactoryBean.setConfigLocation(resolver.getResource(configLocations));
         return sessionFactoryBean;
     }
 

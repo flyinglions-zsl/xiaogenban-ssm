@@ -1,6 +1,7 @@
 package com.ssm.mapper;
 
 import com.ssm.domain.SysUser;
+import org.apache.ibatis.annotations.Param;
 
 public interface SysUserMapper {
     /**
@@ -65,7 +66,7 @@ public interface SysUserMapper {
      *
      * @mbggenerated
      */
-    int checkLogin(String username, String password);
+    int checkLogin(@Param("username") String username, @Param("password") String password);
 
 
 }

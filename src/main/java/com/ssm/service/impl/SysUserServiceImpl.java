@@ -5,9 +5,12 @@ import com.ssm.mapper.SysUserMapper;
 import com.ssm.service.ISysUserService;
 import com.ssm.utils.JwtUtil;
 import com.ssm.utils.R;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,8 +21,9 @@ import java.util.Map;
  * @create: 2019-08-15 23:48
  **/
 @Service
-public class SysUserServiceImpl implements ISysUserService {
+public class  SysUserServiceImpl implements ISysUserService {
 
+    @Autowired
     private SysUserMapper userMapper;
 
     /**
@@ -33,7 +37,7 @@ public class SysUserServiceImpl implements ISysUserService {
         user.setPassword(password);
         //先数据库验证--得到userId
         Integer userId = userMapper.checkLogin(username,password);
-        if(userId != null){
+        if(userId > 0){
             SysUser sysUser = userMapper.selectByPrimaryKey(userId);
             user.setUid(userId);
             //使用jwt加密给用户生成token--15分钟有效
@@ -42,6 +46,7 @@ public class SysUserServiceImpl implements ISysUserService {
             maps.put("token", token);
             maps.put("user", sysUser);
         }
+        System.out.println(maps);
         return maps;
     }
 
@@ -49,4 +54,7 @@ public class SysUserServiceImpl implements ISysUserService {
     public SysUser selectByPrimaryKey(Integer uid) {
         return userMapper.selectByPrimaryKey(uid);
     }
+
+
+
 }
