@@ -87,12 +87,35 @@ CREATE TABLE `sys_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='订单信息表';
 
 
-
+CREATE TABLE `sys_menu` (
+                            `menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+                            `name` varchar(32) COLLATE utf8mb4_bin NOT NULL COMMENT '菜单名称',
+                            `perms` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '菜单权限标识',
+                            `path` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '前端跳转URL',
+                            `component` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '菜单组件',
+                            `parent_id` int(11) DEFAULT NULL COMMENT '父菜单ID',
+                            `icon` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '图标',
+                            `sort` int(11) DEFAULT '1' COMMENT '排序',
+                            `type` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '菜单类型 （类型   0：目录   1：菜单   2：按钮）',
+                            `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                            `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                            `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '逻辑删除标记(0--正常 1--删除)',
+                            PRIMARY KEY (`menu_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='菜单权限表'
 
 -----------------------------------
 BEGIN;
 INSERT INTO `sys_menu` VALUES(1,'权限管理','','admin','',0,'authority',0,'0','2019-08-06 21:02:31','2019-08-06 21:02:31',0);
 INSERT INTO `sys_menu` VALUES(2,'系统管理','','system','',0,'system',0,'0','2019-08-06 21:02:31','2019-08-06 21:02:31',0);
 INSERT INTO `sys_menu` VALUES(3,'用户管理','','user','admin/user',1,'user',1,'1','2019-08-06 22:02:31','2019-08-06 22:02:31',0);
-INSERT INTO `sys_menu` VALUES(4,'用户新增','sys:user:add','',NULL,2,'',0,'2','2019-08-06 22:24:31','2019-08-06 22:24:31',0);
+INSERT INTO `sys_menu` VALUES(4,'用户新增','sys:user:add','',NULL,3,'',0,'2','2019-08-06 22:24:31','2019-08-06 22:24:31',0);
 commit;
+
+
+
+INSERT INTO `sys_role` VALUES(1,'管理员',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+INSERT INTO `sys_role` VALUES(2,'游客',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,0);
+
+INSERT INTO `sys_user` VALUES(1,'admin','123456',18,1,'wuzui',18229607007,'广东深圳','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,1);
+INSERT INTO `sys_user` VALUES(2,'zsl','123456',18,1,'jack',18229607456,'广东深圳','',0,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,2);
+

@@ -19,6 +19,9 @@ import java.io.PrintWriter;
  **/
 public class LoginInterceptor implements HandlerInterceptor {
 
+    /**
+     * 拦截每次请求，登录、静态资源除外
+     * */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         response.setCharacterEncoding("utf-8");

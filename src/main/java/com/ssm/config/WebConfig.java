@@ -99,6 +99,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
                 //字符类型字段如果为null,输出为"",而非null
                 SerializerFeature.WriteNullStringAsEmpty
         );
+        //处理数据库返回时间戳问题，统一设置展示格式
+        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
         //处理中文乱码问题
         List<MediaType> fastMediaTypes = new ArrayList<MediaType>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);

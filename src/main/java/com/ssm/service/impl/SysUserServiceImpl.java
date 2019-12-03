@@ -46,7 +46,6 @@ public class  SysUserServiceImpl implements ISysUserService {
             maps.put("token", token);
             maps.put("user", sysUser);
         }
-        System.out.println(maps);
         return maps;
     }
 

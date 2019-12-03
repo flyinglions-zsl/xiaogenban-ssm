@@ -36,7 +36,10 @@ public class IndexController {
             ,@ApiParam(name = "password", value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password
             , HttpServletRequest request){
         Map<String, Object> map = sysUserService.login(username,password,request);
-        System.out.println("---------------------------" + map);
-        return R.success().put("TokenMap",sysUserService.login(username,password,request));
+        if (map == null){
+            return R.defaultMessage();
+        }
+        System.out.println(map);
+        return R.success().put("TokenMap",map);
     }
 }

@@ -1,5 +1,7 @@
 package com.ssm.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class SysUser {
@@ -21,8 +23,10 @@ public class SysUser {
 
     private String lockFlag;
 
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createdTime;
 
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updatedTime;
 
     private Integer rid;

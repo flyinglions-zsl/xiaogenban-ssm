@@ -4,9 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -42,7 +44,7 @@ public class R implements Serializable {
     //响应消息
     private String msg;
     //响应数据
-    private Map<String,Object> data;
+    private Map<String,Object> data = new HashMap<>();
 
     public static R success(){
         R r = new R();
@@ -78,7 +80,17 @@ public class R implements Serializable {
     }
 
     public R put(String key, Object value){
-        data.put(key, value);
+        if (!StringUtils.isEmpty(key))
+            data.put(key, value);
         return this;
     }
+
+    public static R defaultMessage(){
+        R r = new R();
+        r.setCode(R.SUCCESS_CODE);
+        r.setMsg(R.DATA_NULL);
+        r.setStatus(R.DATA_NULL_STATUS);
+        return r;
+    }
+
 }
