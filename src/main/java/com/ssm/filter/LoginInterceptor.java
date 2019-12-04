@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.ssm.domain.SysUser;
 import com.ssm.utils.JwtUtil;
 import com.ssm.utils.R;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,14 +21,19 @@ import java.io.PrintWriter;
  **/
 public class LoginInterceptor implements HandlerInterceptor {
 
+    Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
+
     /**
-     * 拦截每次请求，登录、静态资源除外
+     * 在请求抵达controller之前，拦截每次请求，登录、静态资源除外
      * */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+        logger.info("访问地址：{}",request.getRequestURL());
+        System.out.println(request.getMethod());
         response.setCharacterEncoding("utf-8");
         String token = request.getParameter("token");
         R r = R.success();
+
         if (token != null){
             SysUser user = JwtUtil.unsign(token, SysUser.class);
             String userId = request.getParameter("userId");

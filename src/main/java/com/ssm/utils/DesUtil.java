@@ -46,7 +46,7 @@ public class DesUtil {
     }
 
     //解密
-    private static String decrypt(byte[] src, String password) throws Exception {
+    public static String decrypt(byte[] src, String password) throws Exception {
         // DES算法要求有一个可信任的随机数源
         SecureRandom random = new SecureRandom();
         // 创建一个DESKeySpec对象

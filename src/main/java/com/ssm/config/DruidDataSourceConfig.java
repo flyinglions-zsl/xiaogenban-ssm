@@ -1,18 +1,25 @@
 package com.ssm.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.ssm.constant.PropertyConstant;
+import com.ssm.utils.PropertyPlaceholderConfigurerExt;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.interceptor.TransactionInterceptor;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -23,7 +30,8 @@ import java.util.Properties;
  **/
 @Configuration
 @MapperScan("com.ssm.mapper")
-@PropertySource("classpath:jdbc.properties")
+//@ImportResource({"classpath:spring-mvc.xml"})
+//@PropertySource("classpath:jdbc.properties")
 public class DruidDataSourceConfig {
 
     @Value("${jdbc.url}")
@@ -52,6 +60,7 @@ public class DruidDataSourceConfig {
         dataSource.setUrl(url);
         dataSource.setUsername(username);
         dataSource.setPassword(password);
+        System.out.println("-----------" + password);
         return dataSource;
     }
 
@@ -112,5 +121,21 @@ public class DruidDataSourceConfig {
 
         interceptor.setTransactionAttributes(transactionProperties);
         return interceptor;
+    }
+
+    @Bean
+    public PropertyPlaceholderConfigurerExt placeholderConfigurerExt() throws Exception {
+        PropertyPlaceholderConfigurerExt placeholderConfigurerExt = new PropertyPlaceholderConfigurerExt();
+        Properties properties = new Properties();
+        //InputStream inputStream1 = new FileInputStream("classpath:jdbc.properties");
+        InputStream inputStream = DruidDataSourceConfig.class.getResourceAsStream("/jdbc.properties");
+        if (inputStream != null)
+            properties.load(inputStream);
+        placeholderConfigurerExt.setProperties(properties);
+        //Resource resource = new ClassPathResource("classpath:jdbc.properties");
+       // placeholderConfigurerExt.setLocation(resource);
+        System.out.println(properties.getProperty(PropertyConstant.DES_KEY));
+        System.out.println(properties.getProperty(PropertyConstant.JDBC_PASSWORD));
+        return placeholderConfigurerExt;
     }
 }
