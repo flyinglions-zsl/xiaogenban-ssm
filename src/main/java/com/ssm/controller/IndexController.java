@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,10 +32,10 @@ public class IndexController {
     private ISysUserService sysUserService;
 
     @ApiOperation(value = "登录验证",httpMethod = "POST")
-    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8")
+    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     public R login(
             @ApiParam(name = "username", value = "用户名", required = true) @RequestParam(value = "username", required = true) String username
-            ,@ApiParam(name = "password", value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password
+            , @ApiParam(name = "password", value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password
             , HttpServletRequest request){
         Map<String, Object> map = new HashMap<>();
         if (username != null && password != null && request != null)

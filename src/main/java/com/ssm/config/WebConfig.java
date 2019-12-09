@@ -81,7 +81,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
-        //registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**");
     }
 
    @Override

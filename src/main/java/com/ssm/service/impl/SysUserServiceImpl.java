@@ -42,7 +42,7 @@ public class  SysUserServiceImpl implements ISysUserService {
             user.setUid(userId);
             //使用jwt加密给用户生成token--15分钟有效
             String token = JwtUtil.sign(user,60L* 1000L* 15L);
-            maps.put("userId", userId);
+//            maps.put("userId", userId);
             maps.put("token", token);
             maps.put("user", sysUser);
         }

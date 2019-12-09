@@ -30,7 +30,7 @@ import java.util.Properties;
  **/
 @Configuration
 @MapperScan("com.ssm.mapper")
-//@ImportResource({"classpath:spring-mvc.xml"})
+@ImportResource({"classpath:spring-mvc.xml"})
 //@PropertySource("classpath:jdbc.properties")
 public class DruidDataSourceConfig {
 
@@ -123,7 +123,7 @@ public class DruidDataSourceConfig {
         return interceptor;
     }
 
-    @Bean
+    /*@Bean
     public PropertyPlaceholderConfigurerExt placeholderConfigurerExt() throws Exception {
         PropertyPlaceholderConfigurerExt placeholderConfigurerExt = new PropertyPlaceholderConfigurerExt();
         Properties properties = new Properties();
@@ -132,10 +132,11 @@ public class DruidDataSourceConfig {
         if (inputStream != null)
             properties.load(inputStream);
         placeholderConfigurerExt.setProperties(properties);
-        //Resource resource = new ClassPathResource("classpath:jdbc.properties");
-       // placeholderConfigurerExt.setLocation(resource);
+        Resource resource = new ClassPathResource("/jdbc.properties");
+        //resource.
+        placeholderConfigurerExt.setLocation(resource);
         System.out.println(properties.getProperty(PropertyConstant.DES_KEY));
         System.out.println(properties.getProperty(PropertyConstant.JDBC_PASSWORD));
         return placeholderConfigurerExt;
-    }
+    }*/
 }

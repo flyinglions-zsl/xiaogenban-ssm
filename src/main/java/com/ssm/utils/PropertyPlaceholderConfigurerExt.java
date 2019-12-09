@@ -9,6 +9,10 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import java.io.IOException;
 import java.util.Properties;
 
+
+/**
+ * 自定义propertySource，实现数据源初始化之前修改peoperties文件信息
+ * */
 public class PropertyPlaceholderConfigurerExt extends PropertyPlaceholderConfigurer {
 
     private Properties properties;
@@ -28,6 +32,7 @@ public class PropertyPlaceholderConfigurerExt extends PropertyPlaceholderConfigu
         super.processProperties(beanFactoryToProcess, properties);
     }
 
+    // 可根据启动参数，动态读取配置文件 https://blog.csdn.net/china_shrimp/article/details/65938684
 //    @Override
 //    protected void loadProperties(Properties props) throws IOException {
 //        props = this.properties;

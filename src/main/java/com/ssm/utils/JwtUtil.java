@@ -59,6 +59,7 @@ public class JwtUtil {
             if (claims.containsKey(EXP) && claims.containsKey(PAYLOAD)) {
                 long exp = (Long)claims.get(EXP);
                 long currentTimeMillis = System.currentTimeMillis();
+                //时间没过期
                 if (exp > currentTimeMillis) {
                     String json = (String)claims.get(PAYLOAD);
                     ObjectMapper objectMapper = new ObjectMapper();
