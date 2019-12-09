@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     private static final Logger logger = Logger.getLogger(LoginInterceptor.class);
 
-    private static List<String> baseMethod = Arrays.asList("login","swagger-ui");
+    private static List<String> baseMethod = Arrays.asList("login","swagger-ui","ui","swagger-resources","api-docs");
 
     /**
      * 在请求抵达controller之前，拦截每次请求，登录、静态资源除外
@@ -42,14 +42,14 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.setStatus(HttpServletResponse.SC_OK);
             return true;
         }
-        String token = request.getHeader("token");
+        String token = request.getHeader("access_token");
         String servletPath = request.getServletPath();
         String methodName = "";
         if (servletPath.contains("."))
             methodName = servletPath.substring(servletPath.lastIndexOf("/")+1,servletPath.lastIndexOf("."));
         else
             methodName = servletPath.substring(servletPath.lastIndexOf("/")+1,servletPath.length());
-//        System.out.println(methodName);
+        System.out.println(methodName);
         R r = R.success();
         if (isInterceptedMethod(methodName)) {
             if (token != null) {

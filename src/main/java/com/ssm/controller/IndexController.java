@@ -32,7 +32,7 @@ public class IndexController {
     private ISysUserService sysUserService;
 
     @ApiOperation(value = "登录验证",httpMethod = "POST")
-    @RequestMapping(value = "/login", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
+    @RequestMapping(value = "/login.do", produces = "application/json; charset=utf-8", method = RequestMethod.POST)
     public R login(
             @ApiParam(name = "username", value = "用户名", required = true) @RequestParam(value = "username", required = true) String username
             , @ApiParam(name = "password", value = "用户密码", required = true) @RequestParam(value = "password", required = true) String password

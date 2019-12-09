@@ -25,6 +25,6 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         //container.addListener(new LogbackConfigListener());
         ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet(rootContext));
         registration.setLoadOnStartup(1);
-        registration.addMapping("/*.do");
+        registration.addMapping("/");
     }
 }
