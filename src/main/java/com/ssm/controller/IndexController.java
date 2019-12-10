@@ -4,17 +4,20 @@ import com.ssm.domain.SysUser;
 import com.ssm.service.ISysUserService;
 import com.ssm.utils.JwtUtil;
 import com.ssm.utils.R;
+import com.ssm.utils.VerifyCodeUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -44,5 +47,27 @@ public class IndexController {
             return R.defaultMessage();
         }
         return R.success().put("TokenMap",map);
+    }
+
+    @ApiOperation(value = "获取验证码图片", httpMethod = "GET")
+    @GetMapping(value = "/getVerifyCode.do")
+    public void getVerificationCode(HttpServletRequest request, HttpServletResponse response){
+        try {
+        int width = 200;
+        int height = 69;
+        BufferedImage verifyImg=new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+        //生成对应宽高的初始图片
+        String randomText = VerifyCodeUtil.drawRandomText(width,height,verifyImg);
+        //功能是生成验证码字符并加上噪点，干扰线，返回值为验证码字符
+        request.getSession().setAttribute("verifyCode", randomText);
+        response.setContentType("image/png");//必须设置响应内容类型为图片，否则前台不识别
+        OutputStream os = null; //获取文件输出流
+        os = response.getOutputStream();
+        ImageIO.write(verifyImg,"png",os);//输出图片流
+        os.flush();
+        os.close();//关闭流
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

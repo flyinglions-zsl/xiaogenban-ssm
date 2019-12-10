@@ -2,10 +2,13 @@ package com.ssm.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.ssm.domain.SysUser;
+import com.ssm.service.ISysUserService;
 import com.ssm.utils.JwtUtil;
 import com.ssm.utils.R;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
